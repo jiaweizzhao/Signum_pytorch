@@ -1,8 +1,8 @@
 # Signum_pytorch
-## This is the repository for Signum optimizer implemented by Pytorch.
-### see details in the original paper at: https://arxiv.org/abs/1711.05101
+## This is the repository for Signum optimizer implemented in Pytorch.
+### see the detailed discription of Signum in the original paper at: https://arxiv.org/abs/1711.05101
 
-Args:\
+Arguments:\
         params (iterable): iterable of parameters to optimize or dicts defining
             parameter groups\
         lr (float): learning rate\
@@ -17,8 +17,8 @@ Args:\
 
 Note:\
         The optimizer updates the weight by:\
-            buf = momentum * buf + (1-momentum)*rescaled_grad\
-            weight = (1 - lr * weight_decay) * weight - lr * sign(buf)
+            momentum = beta * momentum + (1-beta)*rescaled_grad\
+            weight = (1 - lr * weight_decay) * weight - lr * sign(momentum)
 
 Considering the specific case of Momentum, the update Signum can be written as
 
