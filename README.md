@@ -23,12 +23,12 @@ Note:\
 Considering the specific case of Momentum, the update Signum can be written as
 
         .. math::
-                \begin{split}g_t = \nabla J(W_{t-1})\\
-			             m_t = \beta m_{t-1} + (1 - \beta) g_t\\
-				             W_t = W_{t-1} - \eta_t \text{sign}(m_t)}\end{split}
+                 \begin{split}g_t = \nabla J(W_{t-1})\\
+                 m_t = \beta m_{t-1} + (1 - \beta) g_t\\
+		 W_t = W_{t-1} - \eta_t \text{sign}(m_t)}\end{split}
 
 If do not consider Momentum, the update Sigsgd can be written as
 
         .. math::
-            	g_t = \nabla J(W_{t-1})\\
-				        W_t = W_{t-1} - \eta_t \text{sign}(g_t)}
+            	 g_t = \nabla J(W_{t-1})\\
+                 W_t = W_{t-1} - \eta_t \text{sign}(g_t)}
