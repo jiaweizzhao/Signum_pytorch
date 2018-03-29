@@ -26,6 +26,4 @@ Considering the specific case of Momentum, the update Signum can be written as
 
 If do not consider Momentum, the update Sigsgd can be written as
 
-        .. math::
-            	g_t = \nabla J(W_{t-1})\\
-                W_t = W_{t-1} - \eta_t \text{sign}(g_t)
+![](https://latex.codecogs.com/gif.latex?%5Cbegin%7Balign*%7D%20g_t%20%26%3D%20%5Cnabla%20J%28W_%7Bt-1%7D%29%5C%5C%20W_t%20%26%3D%20W_%7Bt-1%7D%20-%20%5Ceta_t%20%5Ctext%7Bsign%7D%28g_t%29%20%5Cend%7Balign*%7D)
