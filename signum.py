@@ -47,7 +47,7 @@ class Signum(Optimizer):
                         buf = param_state['momentum_buffer']
                         m = buf.clone()
                         buf.mul_(momentum).add_(1 - dampening, d_p)
-                        buf.mul_(1-wd_lh).add_(wd_lh,m)
+                        buf.mul_(1-momentum).add_(momentum,m)
                         d_p = torch.sign(buf)
 
                 p.data.add_(-group['lr'], d_p)
