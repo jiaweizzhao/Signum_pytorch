@@ -2,8 +2,27 @@
 import torch
 from torch.optim import Optimizer
 
+
 class Signum(Optimizer):
-    def __init__(self, params, lr=0.01, momentum=0.09, dampening=0, weight_decay = 0, **kwargs):
+    """The Signum optimizer that takes the sign of gradient or momentum.
+
+        The optimizer updates the weight by:
+
+            rescaled_grad = rescale_grad * clip(grad, clip_gradient) + wd * weight
+            buf = momentum * buf + (1-momentum)*rescaled_grad
+            weight = (1 - lr * weight_decay) * weight - lr * sign(buf)
+        see details in the original paper at:https://arxiv.org/abs/1711.05101
+        This optimizer accepts the following parameters in addition to those accepted
+        by :class:`.Optimizer`.
+
+        Parameters
+        ----------
+        momentum : float, optional
+           The momentum value.
+        weight_decay : float, optional
+           The amount of decoupled weight decay regularization,
+    """
+    def __init__(self, params, lr=0.01, momentum=0.09, weight_decay = 0, **kwargs):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if not 0.0 <= momentum:
@@ -11,7 +30,7 @@ class Signum(Optimizer):
         if not 0.0 <= weight_decay:
             raise ValueError("Invalid weight_decay value: {}".format(weight_decay))
 
-        defaults = dict(lr=lr, momentum=momentum,dampening =dampening,
+        defaults = dict(lr=lr, momentum=momentum,
                         weight_decay=weight_decay)
 
         super(Signum, self).__init__(params, defaults)
@@ -28,7 +47,6 @@ class Signum(Optimizer):
         for group in self.param_groups:
             weight_decay = group['weight_decay']
             momentum = group['momentum']
-            dampening = group['dampening']
 
             for p in group['params']:
                 if p.grad is None:
@@ -37,17 +55,18 @@ class Signum(Optimizer):
                 if weight_decay != 0:
                     d_p.add_(weight_decay, p.data)
                 if momentum != 0:
+                    # signum
                     param_state = self.state[p]
-                    if 'momentum_buffer' not in param_state: #signsgd
+                    if 'momentum_buffer' not in param_state:
                         buf = param_state['momentum_buffer'] = torch.zeros_like(p.data)
-                        buf.mul_(momentum).add_(d_p)
-                        d_p = torch.sign(buf)
-                    else:  #signum
+
+                    else:
                         buf = param_state['momentum_buffer']
-                        m = buf.clone()
-                        buf.mul_(momentum).add_(1 - dampening, d_p)
-                        buf.mul_(1-momentum).add_(momentum,m)
-                        d_p = torch.sign(buf)
+
+                    buf.mul_(momentum).add_((1 - momentum),d_p)
+                    d_p = torch.sign(buf)
+                else:#signsgd
+                    d_p = torch.sign(d_p)
 
                 p.data.add_(-group['lr'], d_p)
 
