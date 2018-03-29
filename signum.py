@@ -3,7 +3,7 @@ import torch
 from torch.optim import Optimizer
 
 class Signum(Optimizer):
-    def __init__(self, params, lr=0.01, momentum=0.09, wd_lh = 0.0, dampening=0, weight_decay = 0, **kwargs):
+    def __init__(self, params, lr=0.01, momentum=0.09, dampening=0, weight_decay = 0, **kwargs):
         if not 0.0 <= lr:
             raise ValueError("Invalid learning rate: {}".format(lr))
         if not 0.0 <= momentum:
@@ -11,7 +11,7 @@ class Signum(Optimizer):
         if not 0.0 <= weight_decay:
             raise ValueError("Invalid weight_decay value: {}".format(weight_decay))
 
-        defaults = dict(lr=lr, momentum=momentum, wd_lh=wd_lh,dampening =dampening,
+        defaults = dict(lr=lr, momentum=momentum,dampening =dampening,
                         weight_decay=weight_decay)
 
         super(Signum, self).__init__(params, defaults)
@@ -29,7 +29,6 @@ class Signum(Optimizer):
             weight_decay = group['weight_decay']
             momentum = group['momentum']
             dampening = group['dampening']
-            wd_lh = group['wd_lh']
 
             for p in group['params']:
                 if p.grad is None:
