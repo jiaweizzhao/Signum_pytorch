@@ -8,10 +8,7 @@ The optimizer updates the weight by:
             
     weight = (1 - lr * weight_decay) * weight - lr * sign(buf)
     
-This optimizer accepts the following parameters in addition to those accepted by class:`.Optimizer`.
-###Parameters
-
-####momentum : float (optional)
-   The momentum value.
-####weight_decay : float (optional)
-   The amount of decoupled weight decay regularization
+This optimizer accepts the following parameters in addition to those accepted by class:`.Optimizer`.\
+Parameters\
+momentum : float (optional)   The momentum value.\
+weight_decay : float (optional)  The amount of decoupled weight decay regularization
