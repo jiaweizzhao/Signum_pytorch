@@ -1,6 +1,6 @@
 # Signum_pytorch
 ## This is the repository for Signum optimizer implemented in Pytorch.
-### see the detailed discription of Signum in the original paper at: https://arxiv.org/abs/1711.05101
+### see the detailed discription of Signum in the original paper at: https://arxiv.org/abs/1802.04434
 
 Arguments:\
         params (iterable): iterable of parameters to optimize or dicts defining
