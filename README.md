@@ -1,8 +1,8 @@
 # Signum_pytorch
-## This is the repository for Signum optimizer implemented by Pytorch.
-### see details in the original paper at: https://arxiv.org/abs/1711.05101
+## This is the repository for Signum optimizer implemented in Pytorch.
+### see the detailed discription of Signum in the original paper at: https://arxiv.org/abs/1711.05101
 
-Args:\
+Arguments:\
         params (iterable): iterable of parameters to optimize or dicts defining
             parameter groups\
         lr (float): learning rate\
@@ -17,18 +17,13 @@ Args:\
 
 Note:\
         The optimizer updates the weight by:\
-            buf = momentum * buf + (1-momentum)*rescaled_grad\
-            weight = (1 - lr * weight_decay) * weight - lr * sign(buf)
+            momentum = beta * momentum + (1-beta)*rescaled_grad\
+            weight = (1 - lr * weight_decay) * weight - lr * sign(momentum)
 
 Considering the specific case of Momentum, the update Signum can be written as
 
-        .. math::
-                 \begin{split}g_t = \nabla J(W_{t-1})\\
-                 m_t = \beta m_{t-1} + (1 - \beta) g_t\\
-		 W_t = W_{t-1} - \eta_t \text{sign}(m_t)}\end{split}
+![](https://latex.codecogs.com/gif.latex?%5Cbegin%7Balign*%7D%20g_t%20%26%3D%20%5Cnabla%20J%28W_%7Bt-1%7D%29%5C%5C%20m_t%20%26%3D%20%5Cbeta%20m_%7Bt-1%7D%20&plus;%20%281%20-%20%5Cbeta%29%20g_t%5C%5C%20W_t%20%26%3D%20W_%7Bt-1%7D%20-%20%5Ceta_t%20%5Ctext%7Bsign%7D%28m_t%29%20%5Cend%7Balign*%7D)
 
 If do not consider Momentum, the update Sigsgd can be written as
 
-        .. math::
-            	 g_t = \nabla J(W_{t-1})\\
-                 W_t = W_{t-1} - \eta_t \text{sign}(g_t)}
+![](https://latex.codecogs.com/gif.latex?%5Cbegin%7Balign*%7D%20g_t%20%26%3D%20%5Cnabla%20J%28W_%7Bt-1%7D%29%5C%5C%20W_t%20%26%3D%20W_%7Bt-1%7D%20-%20%5Ceta_t%20%5Ctext%7Bsign%7D%28g_t%29%20%5Cend%7Balign*%7D)
