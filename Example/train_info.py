@@ -2,7 +2,6 @@
 
 import torch
 
-from pre_process import find_center
 import torch.nn as nn
 from torchvision import  models, transforms
 

@@ -6,8 +6,6 @@ from PIL import Image
 from torchvision import transforms as T
 from torch.utils import data
 
-#20847   8935
-
 
 class Caltech(data.Dataset):
     def __init__(self, root,PC,train=True, test=False):

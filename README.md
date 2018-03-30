@@ -27,3 +27,12 @@ Considering the specific case of Momentum, the update Signum can be written as
 If do not consider Momentum, the update Sigsgd can be written as
 
 ![](https://latex.codecogs.com/gif.latex?%5Cbegin%7Balign*%7D%20g_t%20%26%3D%20%5Cnabla%20J%28W_%7Bt-1%7D%29%5C%5C%20W_t%20%26%3D%20W_%7Bt-1%7D%20-%20%5Ceta_t%20%5Ctext%7Bsign%7D%28g_t%29%20%5Cend%7Balign*%7D)
+
+Description of example:\
+Using pre-trained resnet-18 model and supporting the datasets of Caltech101, VOC2012 and CVPR Indoor.\
+Directory:\
+train.py: train and validate the dataset\
+signum.py: contain the signum optimizer\
+dataset_info.py: load datasets information from datasets/ to train.py\
+train_info.py: load training information to train.py\
+datasets/: save the data pre-process for datasets
